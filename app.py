@@ -39,6 +39,13 @@ class Post(db.Model):
     description = db.Column(db.Text, nullable=False)
     uploads = db.Column(db.Text, nullable=True)
 
+class Document(db.Model):
+    __tablename__ = 'documents'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    uploads = db.Column(db.Text, nullable=True)
+
 with app.app_context():
     db.create_all()
 
@@ -47,7 +54,7 @@ ALLOWED_IP = '127.0.0.1'
 
 @app.before_request
 def limit_remote_addr():
-    print(f"Accesare de la: {request.remote_addr}")
+    print(f"acces from: {request.remote_addr}")
     if request.remote_addr != ALLOWED_IP and request.path.startswith('/admin'):
         abort(403)  
 
@@ -79,7 +86,7 @@ class MyModelView(ModelView):
 admin = Admin(app, name='admin', template_mode='bootstrap3', index_view=MyAdminIndexView())
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Post, db.session))
-
+admin.add_view(MyModelView(Document, db.session))
 @app.route("/")
 def index():
     return render_template("index.html", posts=Post.query.all())
@@ -87,6 +94,10 @@ def index():
 @app.route("/anunturi")
 def anunturi():
     return render_template("anunturi.html", posts=Post.query.all())
+
+@app.route("/Informatii utile")
+def utile():
+    return render_template("utile.html", documents=Document.query.all())
 
 if __name__ == "__main__":
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
