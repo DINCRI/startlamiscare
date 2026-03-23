@@ -1,29 +1,26 @@
 import os
-import os.path as op
-from flask import Flask, render_template, redirect, url_for, request, abort
+from flask import Flask, render_template, request, abort
 from flask_admin import Admin, AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import secure_filename
 from flask_basicauth import BasicAuth
-from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, MultipleFileField
-from wtforms.validators import DataRequired
-from flask_admin.form import FileUploadField
+from wtforms import MultipleFileField
 
 app = Flask(__name__)
-
 
 app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 app.secret_key = "super secret key"
 
 app.config['BASIC_AUTH_USERNAME'] = 'john'
 app.config['BASIC_AUTH_PASSWORD'] = 'matrix'
+
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'uploads')
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///project.db"
 
 basic_auth = BasicAuth(app)
-
 db = SQLAlchemy(app)
 
 class User(db.Model):
@@ -49,14 +46,12 @@ class Document(db.Model):
 with app.app_context():
     db.create_all()
 
-
-ALLOWED_IP = '127.0.0.1'  
+ALLOWED_IP = '127.0.0.1'
 
 @app.before_request
 def limit_remote_addr():
-    print(f"acces from: {request.remote_addr}")
     if request.remote_addr != ALLOWED_IP and request.path.startswith('/admin'):
-        abort(403)  
+        abort(403)
 
 class MyAdminIndexView(AdminIndexView):
     @expose('/')
@@ -74,7 +69,7 @@ class MyModelView(ModelView):
             files = request.files.getlist("uploads")
             filenames = []
             for file in files:
-                if file:
+                if file and file.filename:
                     filename = secure_filename(file.filename)
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     filenames.append(filename)
@@ -83,10 +78,11 @@ class MyModelView(ModelView):
     def is_accessible(self):
         return basic_auth.authenticate()
 
-admin = Admin(app, name='admin', template_mode='bootstrap3', index_view=MyAdminIndexView())
+admin = Admin(app, name='admin', index_view=MyAdminIndexView())
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Post, db.session))
 admin.add_view(MyModelView(Document, db.session))
+
 @app.route("/")
 def index():
     return render_template("index.html", posts=Post.query.all())
@@ -95,20 +91,24 @@ def index():
 def anunturi():
     return render_template("anunturi.html", posts=Post.query.all())
 
-@app.route("/Informatii utile")
+
+
+@app.route("/post/<int:post_id>")
+def post_detail(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template("post_detail.html", post=post)
+
+@app.route("/utile")
 def utile():
     return render_template("utile.html", documents=Document.query.all())
 
-@app.route("/Despre noi")
+@app.route("/despre-noi")
 def despre_noi():
     return render_template("despre_noi.html")
 
-@app.route("/Contact")
+@app.route("/contact")
 def contact():
     return render_template("contact.html")
-    
+
 if __name__ == "__main__":
-    if not os.path.exists(app.config['UPLOAD_FOLDER']):
-        os.makedirs(app.config['UPLOAD_FOLDER'])
-    
     app.run()

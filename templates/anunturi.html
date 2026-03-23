@@ -1,117 +1,306 @@
 <!DOCTYPE html>
-<html data-theme="cmyk" lang="en">
+<html lang="ro" data-theme="startlamiscare">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Anunțuri - Liceul cu Program Sportiv</title>
-    <style>
-         <style>
-        .truncate-description {
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Limitează la 3 linii */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .navbar-logo {
-            height: 2.5rem; /* Fixează înălțimea logo-ului */
-            width: auto; /* Păstrează proporțiile logo-ului */
-            margin-left: 0.5rem; /* Adaugă un mic spațiu între logo și text */
-        }
-        @media (max-width: 1024px) {
-            .navbar-logo {
-                display: none; /* Ascunde logo-ul pe ecrane mici */
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Anunțuri — Start la Mișcare</title>
+
+  <script>
+    tailwind.config = {
+      daisyui: {
+        themes: [
+          {
+            startlamiscare: {
+              "primary": "#E01020",
+              "primary-content": "#FFFFFF",
+              "secondary": "#101010",
+              "secondary-content": "#FFFFFF",
+              "accent": "#FF3B48",
+              "accent-content": "#101010",
+              "neutral": "#101010",
+              "neutral-content": "#FFFFFF",
+              "base-100": "#FFFFFF",
+              "base-200": "#FFF5F6",
+              "base-300": "#FFD9DC",
+              "base-content": "#101010",
             }
-            .navbar-start {
-                flex-grow: 1; /* Asigură că textul este centrat corect */
-            }
-            .navbar-end {
-                flex-grow: 0;
-            }
-        }
-    </style>
-    </style>
+          }
+        ]
+      }
+    }
+  </script>
+
+  <style>
+    /* ribbon bg (smooth, no pixel) */
+    .ribbon-bg{
+      background:
+        radial-gradient(1300px 560px at -260px -260px, rgba(224,16,32,.96) 0 44%, transparent 45%),
+        radial-gradient(1080px 480px at -280px -280px, rgba(16,16,16,.92) 0 30%, transparent 31%),
+
+        radial-gradient(1500px 820px at calc(100% + 360px) calc(100% + 360px), rgba(224,16,32,.96) 0 44%, transparent 45%),
+        radial-gradient(1320px 780px at calc(100% + 340px) calc(100% + 340px), rgba(16,16,16,.92) 0 36%, transparent 37%),
+        radial-gradient(1200px 720px at calc(100% + 320px) calc(100% + 320px), rgba(224,16,32,.96) 0 26%, transparent 27%),
+        linear-gradient(#fff,#fff);
+      background-attachment: fixed;
+    }
+
+    /* FORCE DaisyUI colors (fix mov) */
+    :root[data-theme="startlamiscare"]{
+      --p: 352 87% 47%;
+      --pc: 0 0% 100%;
+      --s: 0 0% 6%;
+      --sc: 0 0% 100%;
+      --a: 355 100% 62%;
+      --ac: 0 0% 8%;
+      --n: 0 0% 6%;
+      --nc: 0 0% 100%;
+      --b1: 0 0% 100%;
+      --b2: 355 100% 97%;
+      --b3: 355 100% 92%;
+      --bc: 0 0% 8%;
+    }
+
+    .card-glass{
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(16,16,16,.12);
+      backdrop-filter: blur(10px);
+    }
+    .subtitle{ color: rgba(16,16,16,.80); }
+    .muted{ color: rgba(16,16,16,.62); }
+
+    .btn{ border-radius: 1.25rem; font-weight: 900; letter-spacing: .2px; }
+    .btn-primary{ background:#E01020 !important; border-color:#E01020 !important; color:#fff !important; }
+    .btn-primary:hover{ filter: brightness(.96); transform: translateY(-1px); }
+    .btn-outline{ border-width:2px !important; border-color:#E01020 !important; color:#E01020 !important; }
+    .btn-outline:hover{ background: rgba(224,16,32,.10) !important; transform: translateY(-1px); }
+    .btn-soft{
+      background: rgba(224,16,32,.10) !important;
+      border: 1px solid rgba(224,16,32,.25) !important;
+      color: #E01020 !important;
+    }
+    .btn-soft:hover{ background: rgba(224,16,32,.14) !important; transform: translateY(-1px); }
+
+    /* images: crisp + nice crop */
+    .post-img{
+      width: 100%;
+      height: 18rem;         /* 288px */
+      object-fit: cover;
+      border-radius: 1.25rem;
+      border: 1px solid rgba(16,16,16,.12);
+      background: #fff;
+      display:block;
+    }
+    @media (min-width: 1024px){
+      .post-img{ height: 22rem; }
+    }
+
+    /* reveal */
+    .reveal{opacity:0; transform:translateY(14px); transition:opacity .7s ease, transform .7s ease;}
+    .reveal.is-visible{opacity:1; transform:translateY(0);}
+
+    .line-clamp-3{
+      display:-webkit-box;
+      -webkit-line-clamp:3;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+  </style>
 </head>
-<body>
-    <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
-        <div class="navbar-start">
-            <a class="btn btn-ghost normal-case text-xl">Liceul cu Program Sportiv</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1">
-                <li><a href="{{ url_for('index') }}">Acasă</a></li>
-                <li><a href="#">Informații utile</a></li>
-                <li><a href="{{url_for('despre_noi')}}">Despre noi</a></li>
-                <li><a href="#">Examene naționale</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-        <div class="navbar-end">
-            <!-- Logo -->
-            <a href="#">
-                <img src="{{ url_for('static', filename='uploads/2.jpg') }}" alt="Logo" class="navbar-logo">
+
+<body class="min-h-screen ribbon-bg text-base-content bg-base-100">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50">
+    <div class="mx-auto max-w-6xl px-4 py-3">
+      <div class="card-glass rounded-2xl">
+        <div class="navbar">
+          <div class="navbar-start">
+            <a href="{{ url_for('index') }}" class="btn btn-ghost gap-3">
+              <img src="{{ url_for('static', filename='uploads/logo.png') }}" class="h-9 w-9 object-contain" alt="Logo">
+              <span class="font-black tracking-tight text-lg">Start la Mișcare</span>
             </a>
+          </div>
+
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 font-semibold">
+              <li><a href="{{ url_for('index') }}#galerie">Galerie</a></li>
+              <li><a href="{{ url_for('index') }}#sporturi">Sporturi</a></li>
+              <li><a href="{{ url_for('index') }}#program">Program</a></li>
+              <li><a href="{{ url_for('anunturi') }}" class="active">Anunțuri</a></li>
+              <li><a href="{{ url_for('index') }}#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          <div class="navbar-end hidden lg:flex gap-2">
+            <a href="{{ url_for('index') }}" class="btn btn-outline btn-sm">Acasă</a>
+            <a href="{{ url_for('index') }}#inscriere" class="btn btn-primary btn-sm">Înscrie-te</a>
+          </div>
+
+          <div class="navbar-end lg:hidden">
+            <a href="{{ url_for('index') }}" class="btn btn-outline btn-sm">Acasă</a>
+          </div>
         </div>
-        <!-- Mobile Menu Toggle -->
-        <div class="lg:hidden navbar-end">
-            <div class="dropdown">
-                <label tabindex="0" class="btn btn-ghost lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </label>
-                <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 right-0">
-                    <li><a href="{{ url_for('index') }}">Acasă</a></li>
-                    <li><a href="{{ url_for('utile') }}">Informații utile</a></li>
-                    <li><a href="#">Despre noi</a></li>
-                    <li><a href="#">Examene naționale</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-        </div>
+      </div>
     </div>
-    
-    <div class="p-10">
-        <h2 class="text-4xl font-bold text-center mb-8">Anunțuri</h2>
-        <div class="space-y-10">
-            {% for post in posts %}
-            <div class="card bg-base-200 shadow-xl">
-                <figure class="p-6">
-                    {% if post.uploads %}
-                    <img src="{{ url_for('static', filename='uploads/' ~ post.uploads.split(',')[0]) }}" alt="{{ post.title }}" class="anunt-img">
-                    {% endif %}
-                </figure>
-                <div class="card-body">
-                    <h2 class="card-title text-3xl">{{ post.title }}</h2>
-                    <p>{{ post.description }}</p>
-                </div>
-            </div>
-            {% endfor %}
+  </header>
+
+  <!-- HEADER -->
+  <section class="mx-auto max-w-6xl px-6 pt-6 pb-4">
+    <div class="reveal card-glass rounded-3xl p-7 lg:p-10">
+      <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-base-300">
+            <span class="badge badge-primary badge-sm"></span>
+            <span class="text-sm font-semibold">Actualizări oficiale</span>
+          </div>
+          <h1 class="mt-4 text-4xl lg:text-5xl font-black text-primary">Anunțuri</h1>
+          <p class="mt-2 subtitle max-w-2xl">
+            Aici apar toate postările din admin. Pozele se afișează frumos (single sau carousel).
+          </p>
         </div>
+
+        <div class="flex gap-2">
+          <a href="{{ url_for('index') }}#program" class="btn btn-soft">Program</a>
+          <a href="{{ url_for('index') }}#inscriere" class="btn btn-primary">Înscriere</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POSTS -->
+  <main class="mx-auto max-w-6xl px-6 pb-12">
+    <div class="space-y-6">
+      {% for post in posts %}
+      <article class="reveal card-glass rounded-3xl p-5 lg:p-7">
+        <div class="grid lg:grid-cols-12 gap-6 items-start">
+
+          <!-- MEDIA -->
+          <div class="lg:col-span-5">
+            {% if post.uploads %}
+              {% set imgs = post.uploads.split(',') %}
+              {% if imgs|length > 1 %}
+                <!-- Carousel if multiple images -->
+                <div class="carousel w-full rounded-3xl overflow-hidden border border-base-300 bg-white">
+                  {% for img in imgs %}
+                  <div id="slide-{{ post.id }}-{{ loop.index }}" class="carousel-item relative w-full">
+                    <img
+                      src="{{ url_for('static', filename='uploads/' ~ img) }}"
+                      alt="{{ post.title }} - imagine {{ loop.index }}"
+                      class="post-img rounded-none border-0"
+                      loading="lazy"
+                    />
+                    <div class="absolute left-3 right-3 top-1/2 flex -translate-y-1/2 transform justify-between">
+                      <a href="#slide-{{ post.id }}-{{ (loop.index - 1) if loop.index > 1 else (imgs|length) }}" class="btn btn-circle btn-sm">❮</a>
+                      <a href="#slide-{{ post.id }}-{{ (loop.index + 1) if loop.index < (imgs|length) else 1 }}" class="btn btn-circle btn-sm">❯</a>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                  {% for _ in imgs %}
+                    <span class="badge badge-outline">{{ loop.index }}/{{ imgs|length }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                <!-- Single image -->
+                <img
+                  src="{{ url_for('static', filename='uploads/' ~ imgs[0]) }}"
+                  alt="{{ post.title }}"
+                  class="post-img"
+                  loading="lazy"
+                />
+              {% endif %}
+            {% else %}
+              <!-- No image -->
+              <div class="rounded-3xl border border-base-300 bg-white p-8 flex items-center justify-center h-72">
+                <div class="text-center">
+                  <div class="text-5xl">📰</div>
+                  <div class="mt-2 font-black text-primary">Fără imagine</div>
+                  <div class="text-sm muted mt-1">Poți încărca poze din admin la postare.</div>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- CONTENT -->
+          <div class="lg:col-span-7">
+            <div class="flex items-start justify-between gap-3">
+              <h2 class="text-2xl lg:text-3xl font-black text-primary">{{ post.title }}</h2>
+              <span class="badge badge-primary">Anunț</span>
+            </div>
+
+            <p class="mt-3 subtitle whitespace-pre-line">{{ post.description }}</p>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              <a href="{{ url_for('index') }}#inscriere" class="btn btn-primary btn-sm">Înscrie-te</a>
+              <a href="{{ url_for('index') }}#program" class="btn btn-outline btn-sm">Vezi program</a>
+              <a href="{{ url_for('index') }}#contact" class="btn btn-soft btn-sm">Contact</a>
+            </div>
+          </div>
+
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-base-300 bg-white/80" id="contact">
+    <div class="mx-auto max-w-6xl px-6 py-10 grid md:grid-cols-3 gap-8">
+      <div>
+        <div class="flex items-center gap-3">
+          <img src="{{ url_for('static', filename='uploads/logo.png') }}" class="h-10 w-10 object-contain" alt="Logo">
+          <div>
+            <div class="font-black text-primary">Start la Mișcare</div>
+            <div class="text-sm muted">3 Iunie 2026</div>
+          </div>
+        </div>
+        <p class="mt-4 subtitle">
+          Eveniment sportiv multi-disciplină: fotbal, tenis, volei, box & altele.
+        </p>
+      </div>
+
+      <div>
+        <div class="font-black mb-3 text-primary">Linkuri</div>
+        <ul class="menu menu-sm">
+          <li><a href="{{ url_for('index') }}#galerie">Galerie</a></li>
+          <li><a href="{{ url_for('index') }}#sporturi">Sporturi</a></li>
+          <li><a href="{{ url_for('index') }}#program">Program</a></li>
+          <li><a href="{{ url_for('anunturi') }}">Anunțuri</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="font-black mb-3 text-primary">Contact</div>
+        <p class="subtitle">Telefon: 0123 456 789</p>
+        <p class="subtitle">Email: contact@startlamiscare.ro</p>
+        <div class="mt-4 flex gap-2">
+          <a class="btn btn-outline btn-sm">Facebook</a>
+          <a class="btn btn-outline btn-sm">Instagram</a>
+          <a class="btn btn-outline btn-sm">YouTube</a>
+        </div>
+      </div>
     </div>
 
-   
-    <footer class="footer bg-base-200 text-base-content p-10 mt-10 border-t-2 border-base-300">
-        <div>
-            <span class="footer-title">Linkuri utile</span>
-            <a class="link link-hover">Acasă</a>
-            <a class="link link-hover">Admitere</a>
-            <a class="link link-hover">Contact</a>
-        </div>
-        <div>
-            <span class="footer-title">Social Media</span>
-            <a class="link link-hover">Facebook</a>
-            <a class="link link-hover">Instagram</a>
-            <a class="link link-hover">YouTube</a>
-        </div>
-        <div>
-            <span class="footer-title">Contact</span>
-            <p>Telefon: 0123 456 789</p>
-            <p>Email: contact@liceul-sportiv.ro</p>
-        </div>
-    </footer>
+    <div class="text-center py-4 border-t border-base-300 text-sm muted">
+      © 2026 Start la Mișcare • Toate drepturile rezervate
+    </div>
+  </footer>
+
+  <!-- JS: reveal -->
+  <script>
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>

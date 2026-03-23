@@ -1,153 +1,577 @@
 <!DOCTYPE html>
-<html data-theme="cmyk" lang="en">
+<html lang="ro" data-theme="startlamiscare">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Pagina Principală - Liceul cu Program Sportiv</title>
-    <style>
-        .truncate-description {
-            display: -webkit-box;
-            -webkit-line-clamp: 3; /* Limitează la 3 linii */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandRed: "#E01020",
+            brandBlack: "#101010",
+          },
+          boxShadow: {
+            glow: "0 0 0 1px rgba(224,16,32,.20), 0 18px 55px rgba(16,16,16,.12)",
+          }
         }
-        .navbar-logo {
-            height: 2.5rem; /* Fixează înălțimea logo-ului */
-            width: auto; /* Păstrează proporțiile logo-ului */
-            margin-left: 0.5rem; /* Adaugă un mic spațiu între logo și text */
-        }
-        @media (max-width: 1024px) {
-            .navbar-logo {
-                display: none; /* Ascunde logo-ul pe ecrane mici */
+      },
+      daisyui: {
+        themes: [
+          {
+            startlamiscare: {
+              "primary": "#E01020",
+              "primary-content": "#FFFFFF",
+              "secondary": "#101010",
+              "secondary-content": "#FFFFFF",
+              "accent": "#FF3B48",
+              "accent-content": "#101010",
+              "neutral": "#101010",
+              "neutral-content": "#FFFFFF",
+              "base-100": "#FFFFFF",
+              "base-200": "#FFF5F6",
+              "base-300": "#FFD9DC",
+              "base-content": "#101010",
             }
-            .navbar-start {
-                flex-grow: 1; /* Asigură că textul este centrat corect */
-            }
-            .navbar-end {
-                flex-grow: 0;
-            }
-        }
-    </style>
+          }
+        ]
+      }
+    }
+  </script>
+
+  <title>Start la Mișcare — 3 Iunie 2026</title>
+
+  <style>
+    .ribbon-bg{
+      background:
+        radial-gradient(1300px 560px at -260px -260px, rgba(224,16,32,.96) 0 44%, transparent 45%),
+        radial-gradient(1080px 480px at -280px -280px, rgba(16,16,16,.92) 0 30%, transparent 31%),
+        radial-gradient(1500px 820px at calc(100% + 360px) calc(100% + 360px), rgba(224,16,32,.96) 0 44%, transparent 45%),
+        radial-gradient(1320px 780px at calc(100% + 340px) calc(100% + 340px), rgba(16,16,16,.92) 0 36%, transparent 37%),
+        radial-gradient(1200px 720px at calc(100% + 320px) calc(100% + 320px), rgba(224,16,32,.96) 0 26%, transparent 27%),
+        linear-gradient(#fff,#fff);
+      background-attachment: fixed;
+    }
+
+    :root[data-theme="startlamiscare"]{
+      --p: 352 87% 47%;
+      --pc: 0 0% 100%;
+      --s: 0 0% 6%;
+      --sc: 0 0% 100%;
+      --a: 355 100% 62%;
+      --ac: 0 0% 8%;
+      --n: 0 0% 6%;
+      --nc: 0 0% 100%;
+      --b1: 0 0% 100%;
+      --b2: 355 100% 97%;
+      --b3: 355 100% 92%;
+      --bc: 0 0% 8%;
+    }
+
+    .card-glass{
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(16,16,16,.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .subtitle{ color: rgba(16,16,16,.80); }
+    .muted{ color: rgba(16,16,16,.62); }
+
+    .btn{
+      border-radius: 1.25rem;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+
+    .btn-primary{
+      background: #E01020 !important;
+      border-color: #E01020 !important;
+      color: #fff !important;
+      box-shadow: 0 0 0 1px rgba(224,16,32,.20), 0 18px 55px rgba(16,16,16,.12);
+    }
+
+    .btn-primary:hover{
+      transform: translateY(-1px);
+      filter: brightness(.98);
+    }
+
+    .btn-outline{
+      border-width: 2px !important;
+      border-color: #E01020 !important;
+      color: #E01020 !important;
+    }
+
+    .btn-outline:hover{
+      background: rgba(224,16,32,.10) !important;
+      transform: translateY(-1px);
+    }
+
+    .btn-soft{
+      background: rgba(224,16,32,.10) !important;
+      border: 1px solid rgba(224,16,32,.25) !important;
+      color: #E01020 !important;
+    }
+
+    .btn-soft:hover{
+      background: rgba(224,16,32,.14) !important;
+      transform: translateY(-1px);
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .line-clamp-3{
+      display:-webkit-box;
+      -webkit-line-clamp:3;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+
+    .sport-card{
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .sport-card:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(224,16,32,.20), 0 18px 55px rgba(16,16,16,.12);
+    }
+  </style>
 </head>
-<body>
-    <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-lg sticky top-0 z-50">
-        <div class="navbar-start">
-            <a class="btn btn-ghost normal-case text-xl">Liceul cu Program Sportiv</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-            <ul class="menu menu-horizontal px-1">
-                <li><a href="#">Acasă</a></li>
-                <li><a href="{{ url_for('utile') }}">Informații utile</a></li>
-                <li><a href="{{url_for('despre_noi')}}">Despre noi</a></li>
-                <li><a href="{{ url_for('anunturi') }}">Anunțuri</a></li>
-                <li><a href="{{url_for('contact')}}">Contact</a></li>
-            </ul>
-        </div>
-        <div class="navbar-end">
-            <!-- Logo -->
-            <a href="#">
-                <img src="{{ url_for('static', filename='uploads/2.jpg') }}" alt="Logo" class="navbar-logo">
+
+<body class="min-h-screen ribbon-bg text-base-content">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50">
+    <div class="mx-auto max-w-6xl px-4 py-3">
+      <div class="card-glass rounded-2xl">
+        <div class="navbar">
+          <div class="navbar-start">
+            <a href="{{ url_for('index') }}" class="btn btn-ghost gap-3">
+              <img src="{{ url_for('static', filename='uploads/logo.png') }}" class="h-9 w-9 object-contain" alt="Logo">
+              <span class="font-black tracking-tight text-lg">Start la Mișcare</span>
             </a>
-        </div>
-        <!-- Mobile Menu Toggle -->
-        <div class="lg:hidden navbar-end">
-            <div class="dropdown">
-                <label tabindex="0" class="btn btn-ghost lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </label>
-                <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 right-0">
-                    <li><a href="#">Acasă</a></li>
-                    <li><a href="#">Informații utile</a></li>
-                    <li><a href="#">Despre noi</a></li>
-                    <li><a href="#">Examene naționale</a></li>
-                    <li><a href="#">Anunțuri</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
+          </div>
+
+          <div class="navbar-center hidden lg:flex">
+            <ul class="menu menu-horizontal px-1 font-semibold">
+              <li><a class="navlink" href="#sporturi">Sporturi</a></li>
+              <li><a class="navlink" href="#program">Program</a></li>
+              <li><a class="navlink" href="#stiri">Știri</a></li>
+              <li><a class="navlink" href="#contact">Contact</a></li>
+              <li><a class="navlink" href="">Galerie</a></li>
+            </ul>
+          </div>
+
+          <div class="navbar-end hidden lg:flex gap-2">
+            <a href="{{ url_for('anunturi') }}" class="btn btn-outline btn-sm">Anunțuri</a>
+            <a href="#inscriere" class="btn btn-primary btn-sm">Înscrie-te</a>
+          </div>
+
+          <div class="navbar-end lg:hidden">
+            <div class="dropdown dropdown-end">
+              <label tabindex="0" class="btn btn-ghost">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </label>
+              <ul tabindex="0" class="menu dropdown-content mt-3 p-2 shadow bg-white rounded-box w-56 border border-base-300">
+                <li><a class="navlink" href="#sporturi">Sporturi</a></li>
+                <li><a class="navlink" href="#program">Program</a></li>
+                <li><a class="navlink" href="#stiri">Știri</a></li>
+                <li><a class="navlink" href="#contact">Contact</a></li>
+                <li class="mt-2"><a href="#inscriere" class="btn btn-primary w-full">Înscrie-te</a></li>
+              </ul>
             </div>
+          </div>
+
         </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="mx-auto max-w-6xl px-6 pt-10 pb-8">
+    <div class="grid lg:grid-cols-12 gap-6 items-stretch">
+      <div class="lg:col-span-7 reveal">
+        <div class="card-glass rounded-3xl p-7 lg:p-10 h-full">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-base-300">
+            <span class="badge badge-primary badge-sm"></span>
+            <span class="text-sm font-semibold">3 Iunie 2026 • Eveniment multisport</span>
+          </div>
+
+          <h1 class="mt-5 text-4xl lg:text-6xl font-black leading-tight tracking-tight">
+            <span class="text-primary">Start</span> la
+            <span class="text-primary">Mișcare</span>
+          </h1>
+
+          <p class="mt-4 text-base lg:text-lg subtitle">
+            O zi de competiții: <b>cros</b>, <b>tenis de câmp</b>, <b>haltere</b>, <b>volei</b>, <b>mini fotbal</b>,
+            <b>badminton</b>, <b>baschet</b>, <b>flowerstick</b>, <b>diabolo</b>, <b>tenis de masă</b>,
+            <b>taekwondo</b>, <b>box</b>, <b>teqball</b> și <b>handball</b>.
+          </p>
+
+          <div class="mt-7 flex flex-wrap gap-3">
+            <a href="#inscriere" class="btn btn-primary">Înscriere</a>
+            <a href="#sporturi" class="btn btn-soft">Vezi sporturile</a>
+            <a href="#program" class="btn btn-outline">Program</a>
+          </div>
+
+          <div class="mt-8 grid grid-cols-3 gap-3">
+            <div class="rounded-2xl bg-base-200 border border-base-300 p-4">
+              <div class="text-xs muted">DATA</div>
+              <div class="font-black text-primary">03.06.2026</div>
+            </div>
+            <div class="rounded-2xl bg-base-200 border border-base-300 p-4">
+              <div class="text-xs muted">SPORTURI</div>
+              <div class="font-black text-primary">14</div>
+            </div>
+            <div class="rounded-2xl bg-base-200 border border-base-300 p-4">
+              <div class="text-xs muted">PREMII</div>
+              <div class="font-black text-primary">DA</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 reveal">
+        <div class="card-glass rounded-3xl p-6 shadow-glow h-full">
+          <div class="flex items-center justify-between">
+            <h2 class="font-black text-xl text-primary">Countdown</h2>
+            <span class="badge badge-outline">LIVE</span>
+          </div>
+
+          <div class="mt-4 grid grid-cols-4 gap-3 text-center">
+            <div class="rounded-2xl bg-white border border-base-300 p-4">
+              <div id="cd-days" class="text-3xl font-black text-primary">—</div>
+              <div class="text-xs muted mt-1">zile</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-base-300 p-4">
+              <div id="cd-hours" class="text-3xl font-black text-primary">—</div>
+              <div class="text-xs muted mt-1">ore</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-base-300 p-4">
+              <div id="cd-mins" class="text-3xl font-black text-primary">—</div>
+              <div class="text-xs muted mt-1">min</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-base-300 p-4">
+              <div id="cd-secs" class="text-3xl font-black text-primary">—</div>
+              <div class="text-xs muted mt-1">sec</div>
+            </div>
+          </div>
+
+          <div class="mt-8">
+            <div class="font-black text-primary text-lg">Discipline participante</div>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <span class="badge badge-primary">Cros</span>
+              <span class="badge badge-outline">Tenis de câmp</span>
+              <span class="badge badge-outline">Haltere</span>
+              <span class="badge badge-primary">Volei</span>
+              <span class="badge badge-outline">Mini fotbal</span>
+              <span class="badge badge-outline">Badminton</span>
+              <span class="badge badge-primary">Baschet</span>
+              <span class="badge badge-outline">Flowerstick</span>
+              <span class="badge badge-outline">Diabolo</span>
+              <span class="badge badge-primary">Tenis de masă</span>
+              <span class="badge badge-outline">Taekwondo</span>
+              <span class="badge badge-primary">Box</span>
+              <span class="badge badge-outline">Teqball</span>
+              <span class="badge badge-outline">Handball</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPORTURI -->
+  <section id="sporturi" class="mx-auto max-w-6xl px-6 py-10">
+    <div class="reveal flex items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl lg:text-4xl font-black text-primary">Sporturi</h2>
+        <p class="mt-2 subtitle">Toate disciplinele participante la eveniment.</p>
+      </div>
+      <a href="#inscriere" class="btn btn-primary hidden sm:inline-flex">Înscrie-te</a>
     </div>
 
-    <!-- Banner Principal -->
-    <div class="hero min-h-screen" style="background-image: url('{{ url_for('static', filename='uploads/1.jpg') }}');">
-        <div class="hero-overlay bg-opacity-60"></div>
-        <div class="hero-content text-center text-neutral-content">
-            <div class="max-w-md">
-                <h1 class="mb-5 text-5xl font-bold">Bine ați venit la Liceul cu Program Sportiv</h1>
-                <p class="mb-5">Oferim educație de excelență, bazată pe valori și performanță.</p>
-                <a href="#" class="btn btn-primary">Află mai multe</a>
-            </div>
+    <div class="mt-7 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Cros</h3>
+        <p class="mt-2 subtitle">Probă de rezistență și viteză.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Tenis de câmp</h3>
+        <p class="mt-2 subtitle">Meciuri programate și sistem eliminatoriu.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Haltere</h3>
+        <p class="mt-2 subtitle">Probe de forță și tehnică.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Volei</h3>
+        <p class="mt-2 subtitle">Grupe, semifinale și finală.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Mini fotbal</h3>
+        <p class="mt-2 subtitle">Echipe, grupe și faze finale.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Badminton</h3>
+        <p class="mt-2 subtitle">Meciuri rapide și clasament.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Baschet</h3>
+        <p class="mt-2 subtitle">Turneu pe echipe.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Flowerstick</h3>
+        <p class="mt-2 subtitle">Demonstrații și probe de îndemânare.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Diabolo</h3>
+        <p class="mt-2 subtitle">Coordonare, tehnică și spectacol.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Tenis de masă</h3>
+        <p class="mt-2 subtitle">Single, seturi rapide și clasament.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Taekwondo</h3>
+        <p class="mt-2 subtitle">Probe și demonstrații specifice.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Box</h3>
+        <p class="mt-2 subtitle">Regulament, categorii și siguranță.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Teqball</h3>
+        <p class="mt-2 subtitle">Probe tehnice și meciuri.</p>
+      </div>
+
+      <div class="card-glass rounded-3xl p-5 reveal sport-card">
+        <h3 class="text-xl font-black text-primary">Handball</h3>
+        <p class="mt-2 subtitle">Meciuri pe echipe și clasament.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAM -->
+  <section id="program" class="mx-auto max-w-6xl px-6 py-10">
+    <div class="reveal">
+      <h2 class="text-3xl lg:text-4xl font-black text-primary">Program</h2>
+      <p class="mt-2 subtitle">Un format clar și ușor de citit.</p>
+
+      <div class="mt-7 card-glass rounded-3xl p-6">
+        <div class="overflow-x-auto">
+          <table class="table bg-white rounded-2xl border border-base-300">
+            <thead>
+              <tr>
+                <th>Ora</th>
+                <th>Activitate</th>
+                <th>Loc</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>08:30</td><td>Check-in + validare</td><td>Zona principală</td></tr>
+              <tr><td>09:00</td><td>Deschidere + reguli</td><td>Scenă</td></tr>
+              <tr><td>09:30 - 13:00</td><td>Calificări</td><td>Terenuri</td></tr>
+              <tr><td>13:00</td><td>Pauză</td><td>Food zone</td></tr>
+              <tr><td>14:00 - 17:00</td><td>Semifinale + finale</td><td>Terenuri</td></tr>
+              <tr><td>17:30</td><td>Premiere</td><td>Scenă</td></tr>
+            </tbody>
+          </table>
         </div>
+
+        <div class="mt-5 flex flex-wrap gap-2">
+          <a href="#inscriere" class="btn btn-primary btn-sm">Înscriere</a>
+          <a href="{{ url_for('anunturi') }}" class="btn btn-outline btn-sm">Anunțuri</a>
+          <a href="#contact" class="btn btn-soft btn-sm">Contact</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ÎNSCRIERE -->
+  <section id="inscriere" class="mx-auto max-w-6xl px-6 py-10">
+    <div class="reveal card-glass rounded-3xl p-7 lg:p-10">
+      <div class="grid lg:grid-cols-2 gap-8 items-start">
+        <div>
+          <h2 class="text-3xl lg:text-4xl font-black text-primary">Înscriere</h2>
+          <p class="mt-3 subtitle">
+            Completează datele și alege disciplina la care vrei să participi.
+          </p>
+
+          <div class="mt-5 flex flex-wrap gap-2">
+            <span class="badge badge-primary">3 Iunie 2026</span>
+            <span class="badge badge-outline">Locuri limitate</span>
+            <span class="badge badge-outline">14 discipline</span>
+          </div>
+        </div>
+
+        <div>
+          <form class="space-y-3">
+            <input class="input input-bordered w-full bg-white" placeholder="Nume și prenume" />
+            <input class="input input-bordered w-full bg-white" placeholder="Email" type="email" />
+            <select class="select select-bordered w-full bg-white">
+              <option disabled selected>Alege sportul</option>
+              <option>Cros</option>
+              <option>Tenis de câmp</option>
+              <option>Haltere</option>
+              <option>Volei</option>
+              <option>Mini fotbal</option>
+              <option>Badminton</option>
+              <option>Baschet</option>
+              <option>Flowerstick</option>
+              <option>Diabolo</option>
+              <option>Tenis de masă</option>
+              <option>Taekwondo</option>
+              <option>Box</option>
+              <option>Teqball</option>
+              <option>Handball</option>
+            </select>
+            <button type="button" class="btn btn-primary w-full">Trimite înscrierea</button>
+            
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ȘTIRI -->
+  <section id="stiri" class="mx-auto max-w-6xl px-6 py-10">
+    <div class="reveal flex items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl lg:text-4xl font-black text-primary">Știri</h2>
+        
+      </div>
+      <a href="{{ url_for('anunturi') }}" class="btn btn-outline hidden sm:inline-flex">Toate</a>
     </div>
 
-    <!-- Secțiune Utilități și Evenimente pe două coloane -->
-    <div class="p-10 flex flex-col lg:flex-row gap-6">
-        <!-- Secțiunea pentru informații utile -->
-        <div class="lg:w-1/3 p-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg shadow-xl text-white">
-            <h2 class="text-3xl font-bold mb-4">Informații Utile</h2>
-            <div class="space-y-4">
-                <div class="p-4 bg-base-100 text-base-content rounded-lg shadow-md">
-                    <p class="text-lg font-bold">Orarul Școlii</p>
-                    <a href="#" class="btn btn-outline btn-sm mt-2">Vezi detalii</a>
-                </div>
-                <div class="p-4 bg-base-100 text-base-content rounded-lg shadow-md">
-                    <p class="text-lg font-bold">Regulamentul Școlii</p>
-                    <a href="#" class="btn btn-outline btn-sm mt-2">Vezi detalii</a>
-                </div>
-                <div class="p-4 bg-base-100 text-base-content rounded-lg shadow-md">
-                    <p class="text-lg font-bold">Ghid pentru Părinți</p>
-                    <a href="#" class="btn btn-outline btn-sm mt-2">Vezi detalii</a>
-                </div>
-                <div class="p-4 bg-base-100 text-base-content rounded-lg shadow-md">
-                    <p class="text-lg font-bold">Acces la Bibliotecă</p>
-                    <a href="#" class="btn btn-outline btn-sm mt-2">Vezi detalii</a>
-                </div>
-            </div>
+    <div class="mt-7 grid md:grid-cols-2 gap-4">
+      {% for post in posts %}
+      <div class="card-glass rounded-3xl p-6 reveal">
+        <h3 class="text-xl font-black text-primary">{{ post.title }}</h3>
+        <p class="mt-2 subtitle line-clamp-3">{{ post.description }}</p>
+        <div class="mt-5 flex gap-2">
+          <a href="{{ url_for('anunturi') }}" class="btn btn-primary btn-sm">Detalii</a>
+          <a href="#inscriere" class="btn btn-soft btn-sm">Înscriere</a>
         </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
 
-        <!-- Secțiunea pentru evenimente -->
-        <div class="lg:w-2/3 p-4 bg-base-100 rounded-lg shadow-xl">
-            <h2 class="text-4xl font-bold text-center mb-4">Ultimele Știri și Evenimente</h2>
-            <div class="space-y-6">
-                {% for post in posts %}
-                <div class="card bg-base-200 shadow-xl">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ post.title }}</h2>
-                        <p class="truncate-description">{{ post.description }}</p>
-                        <div class="card-actions justify-end">
-                            <a href="#" class="btn btn-primary">Detalii</a>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
+  <!-- CONTACT -->
+  <footer id="contact" class="mt-10 border-t border-base-300 bg-white/80">
+    <div class="mx-auto max-w-6xl px-6 py-10 grid md:grid-cols-3 gap-8">
+      <div>
+        <div class="flex items-center gap-3">
+          <img src="{{ url_for('static', filename='uploads/logo.png') }}" class="h-10 w-10 object-contain" alt="Logo">
+          <div>
+            <div class="font-black text-primary">Start la Mișcare</div>
+            <div class="text-sm muted">3 Iunie 2026</div>
+          </div>
         </div>
+        <p class="mt-4 subtitle">Eveniment sportiv multi-disciplină organizat în culorile performanței.</p>
+      </div>
+
+      <div>
+        <div class="font-black mb-3 text-primary">Linkuri</div>
+        <ul class="menu menu-sm">
+          <li><a href="#sporturi" class="navlink">Sporturi</a></li>
+          <li><a href="#program" class="navlink">Program</a></li>
+          <li><a href="#inscriere" class="navlink">Înscriere</a></li>
+          <li><a href="{{ url_for('anunturi') }}">Anunțuri</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="font-black mb-3 text-primary">Contact</div>
+        <p class="subtitle">Telefon: 0123 456 789</p>
+        <p class="subtitle">Email: contact@startlamiscare.ro</p>
+        <div class="mt-4 flex gap-2">
+          <a class="btn btn-outline btn-sm">Facebook</a>
+          <a class="btn btn-outline btn-sm">Instagram</a>
+          <a class="btn btn-outline btn-sm">YouTube</a>
+        </div>
+      </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer bg-base-200 text-base-content p-10 mt-10 border-t-2 border-base-300">
-        <div>
-            <span class="footer-title">Linkuri utile</span>
-            <a class="link link-hover">Acasă</a>
-            <a class="link link-hover">Admitere</a>
-            <a class="link link-hover">Contact</a>
-        </div>
-        <div>
-            <span class="footer-title">Social Media</span>
-            <a class="link link-hover">Facebook</a>
-            <a class="link link-hover">Instagram</a>
-            <a class="link link-hover">YouTube</a>
-        </div>
-        <div>
-            <span class="footer-title">Contact</span>
-            <p>Telefon: 0123 456 789</p>
-            <p>Email: contact@liceul-sportiv.ro</p>
-        </div>
-    </footer>
+    <div class="text-center py-4 border-t border-base-300 text-sm muted">
+      © 2026 Start la Mișcare • Toate drepturile rezervate
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll(".navlink").forEach(a => {
+      a.addEventListener("click", (e) => {
+        const href = a.getAttribute("href");
+        if (!href || !href.startsWith("#")) return;
+        e.preventDefault();
+        const el = document.querySelector(href);
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+
+    const target = new Date(2026, 5, 3, 9, 0, 0);
+    const pad2 = (n) => String(n).padStart(2, "0");
+
+    function tick() {
+      const now = new Date();
+      let diff = target - now;
+      if (diff <= 0) diff = 0;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+
+      const d = document.getElementById("cd-days");
+      const h = document.getElementById("cd-hours");
+      const m = document.getElementById("cd-mins");
+      const s = document.getElementById("cd-secs");
+      if (!d || !h || !m || !s) return;
+
+      d.textContent = days;
+      h.textContent = pad2(hours);
+      m.textContent = pad2(mins);
+      s.textContent = pad2(secs);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  </script>
+
 </body>
 </html>
