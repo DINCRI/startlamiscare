@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="startlamiscare">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandRed: "#E01020",
+            brandBlack: "#101010",
+          },
+          boxShadow: {
+            glow: "0 0 0 1px rgba(224,16,32,.20), 0 18px 55px rgba(16,16,16,.12)",
+          }
+        }
+      },
+      daisyui: {
+        themes: [
+          {
+            startlamiscare: {
+              "primary": "#E01020",
+              "primary-content": "#FFFFFF",
+              "secondary": "#101010",
+              "secondary-content": "#FFFFFF",
+              "accent": "#FF3B48",
+              "accent-content": "#101010",
+              "neutral": "#101010",
+              "neutral-content": "#FFFFFF",
+              "base-100": "#FFFFFF",
+              "base-200": "#FFF5F6",
+              "base-300": "#FFD9DC",
+              "base-content": "#101010",
+            }
+          }
+        ]
+      }
+    }
+  </script>
+
+  <title>Înscriere — Start la Mișcare</title>
+
+  <style>
+    .ribbon-bg{
+      background:
+        radial-gradient(1300px 560px at -260px -260px, rgba(224,16,32,.96) 0 44%, transparent 45%),
+        radial-gradient(1080px 480px at -280px -280px, rgba(16,16,16,.92) 0 30%, transparent 31%),
+        radial-gradient(1500px 820px at calc(100% + 360px) calc(100% + 360px), rgba(224,16,32,.96) 0 44%, transparent 45%),
+        radial-gradient(1320px 780px at calc(100% + 340px) calc(100% + 340px), rgba(16,16,16,.92) 0 36%, transparent 37%),
+        radial-gradient(1200px 720px at calc(100% + 320px) calc(100% + 320px), rgba(224,16,32,.96) 0 26%, transparent 27%),
+        linear-gradient(#fff,#fff);
+      background-attachment: fixed;
+    }
+
+    :root[data-theme="startlamiscare"]{
+      --p: 352 87% 47%;
+      --pc: 0 0% 100%;
+      --s: 0 0% 6%;
+      --sc: 0 0% 100%;
+      --a: 355 100% 62%;
+      --ac: 0 0% 8%;
+      --n: 0 0% 6%;
+      --nc: 0 0% 100%;
+      --b1: 0 0% 100%;
+      --b2: 355 100% 97%;
+      --b3: 355 100% 92%;
+      --bc: 0 0% 8%;
+    }
+
+    .card-glass{
+      background: rgba(255,255,255,.88);
+      border: 1px solid rgba(16,16,16,.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .subtitle{ color: rgba(16,16,16,.80); }
+    .muted{ color: rgba(16,16,16,.62); }
+
+    .btn{
+      border-radius: 1.25rem;
+      font-weight: 900;
+      letter-spacing: .2px;
+    }
+
+    .btn-primary{
+      background: #E01020 !important;
+      border-color: #E01020 !important;
+      color: #fff !important;
+      box-shadow: 0 0 0 1px rgba(224,16,32,.20), 0 18px 55px rgba(16,16,16,.12);
+    }
+
+    .btn-primary:hover{
+      transform: translateY(-1px);
+      filter: brightness(.98);
+    }
+
+    .btn-outline{
+      border-width: 2px !important;
+      border-color: #E01020 !important;
+      color: #E01020 !important;
+    }
+
+    .btn-outline:hover{
+      background: rgba(224,16,32,.10) !important;
+      transform: translateY(-1px);
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.is-visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen ribbon-bg text-base-content">
+
+  <header class="sticky top-0 z-50">
+    <div class="mx-auto max-w-6xl px-4 py-3">
+      <div class="rounded-2xl bg-white/12 border border-white/20 backdrop-blur-xl">
+        <div class="navbar">
+          <div class="navbar-start">
+            <a href="{{ url_for('index') }}" class="btn btn-ghost gap-3">
+              <img src="{{ url_for('static', filename='uploads/logo.png') }}" class="h-9 w-9 object-contain" alt="Logo">
+              <span class="font-black tracking-tight text-lg text-black">
+                Start la <span style="color: #E01020;">Mișcare</span>
+              </span>
+            </a>
+          </div>
+
+          <div class="navbar-end gap-2">
+            <a href="{{ url_for('index') }}" class="btn btn-outline btn-sm">Acasă</a>
+            <a href="{{ url_for('anunturi') }}" class="btn btn-outline btn-sm">Anunțuri</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-6 py-10 lg:py-16">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
+
+      <div class="reveal">
+        <div class="card-glass rounded-3xl p-7 lg:p-10">
+          <span class="badge badge-primary">Start la Mișcare</span>
+          <h1 class="mt-4 text-4xl lg:text-5xl font-black leading-tight text-primary">
+            Înscriere la competiție
+          </h1>
+          <p class="mt-4 subtitle text-lg">
+            Completează formularul pentru a te înscrie la disciplina sportivă dorită.
+          </p>
+
+          <div class="mt-6 space-y-3">
+            <div class="rounded-2xl bg-white border border-base-300 p-4">
+              <div class="font-black text-primary">Eveniment</div>
+              <div class="subtitle">4 Iunie 2026</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-base-300 p-4">
+              <div class="font-black text-primary">Locuri</div>
+              <div class="subtitle">Limitate pentru fiecare disciplină</div>
+            </div>
+            <div class="rounded-2xl bg-white border border-base-300 p-4">
+              <div class="font-black text-primary">Participare</div>
+              <div class="subtitle">Selectezi sportul direct din formular</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="card-glass rounded-3xl p-7 lg:p-10 shadow-glow">
+          <h2 class="text-2xl lg:text-3xl font-black text-primary">Formular înscriere</h2>
+          <p class="mt-2 subtitle">Introdu datele tale mai jos.</p>
+
+          <form action="{{ url_for('inscriere') }}" method="POST" class="mt-6 space-y-4">
+
+            <div>
+              <label class="font-semibold block mb-2">Nume</label>
+              <input name="nume" type="text" class="input input-bordered w-full bg-white" placeholder="Introdu numele" required>
+            </div>
+
+            <div>
+              <label class="font-semibold block mb-2">Prenume</label>
+              <input name="prenume" type="text" class="input input-bordered w-full bg-white" placeholder="Introdu prenumele" required>
+            </div>
+
+            <div>
+              <label class="font-semibold block mb-2">Email</label>
+              <input name="email" type="email" class="input input-bordered w-full bg-white" placeholder="Introdu emailul" required>
+            </div>
+
+            <div>
+              <label class="font-semibold block mb-2">Telefon</label>
+              <input name="telefon" type="text" class="input input-bordered w-full bg-white" placeholder="Introdu numărul de telefon" required>
+            </div>
+
+            <div>
+              <label class="font-semibold block mb-2">Sport</label>
+              <select name="sport" class="select select-bordered w-full bg-white" required>
+                <option value="">Alege sportul</option>
+                <option value="Cros">Cros</option>
+                <option value="Tenis de câmp">Tenis de câmp</option>
+                <option value="Haltere">Haltere</option>
+                <option value="Volei">Volei</option>
+                <option value="Mini fotbal">Mini fotbal</option>
+                <option value="Badminton">Badminton</option>
+                <option value="Baschet">Baschet</option>
+                <option value="Flowerstick">Flowerstick</option>
+                <option value="Diabolo">Diabolo</option>
+                <option value="Tenis de masă">Tenis de masă</option>
+                <option value="Taekwondo">Taekwondo</option>
+                <option value="Box">Box</option>
+                <option value="Teqball">Teqball</option>
+                <option value="Handball">Handball</option>
+              </select>
+            </div>
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div role="alert" class="alert alert-warning">
+                    <span>{{ message }}</span>
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <button type="submit" class="btn btn-primary w-full">
+              Trimite înscrierea
+            </button>
+          </form>
+
+          <div class="mt-5 text-center">
+            <a href="{{ url_for('index') }}" class="btn btn-ghost">Înapoi la pagina principală</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    
+  </main>
+
+  <script>
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("is-visible");
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => io.observe(el));
+  </script>
+{% if show_modal %}
+<dialog id="success_modal" class="modal modal-open">
+  <div class="modal-box bg-white text-black rounded-3xl shadow-2xl border border-base-300 max-w-lg">
+    
+    <h3 class="font-black text-2xl text-primary mb-3">
+      🎉 Felicitări!
+    </h3>
+
+    <p class="mb-4">
+      {{ nume }} {{ prenume }}, te-ai înscris cu succes la <b>{{ sport }}</b>!
+    </p>
+
+    <div class="space-y-2 mb-5">
+      <p><b>Validare participanți:</b> 08:30</p>
+      <p><b>Începere concurs:</b> 09:30</p>
+      <p><b>Locație:</b> Zona principală / terenul sportului ales</p>
+    </div>
+
+    <div class="modal-action">
+      <a href="{{ url_for('index') }}" class="btn btn-primary">
+        Înapoi la pagina principală
+      </a>
+    </div>
+
+  </div>
+</dialog>
+{% endif %}
+</body>
+</html>
