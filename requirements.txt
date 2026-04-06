@@ -4,3 +4,5 @@ Flask-SQLAlchemy
 Flask-BasicAuth
 WTForms
 Werkzeug
+psycopg2-binary
+gunicorn
