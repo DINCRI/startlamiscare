@@ -46,6 +46,12 @@
   <title>Start la Mișcare</title>
 
   <style>
+      .time-badge{
+  background: linear-gradient(135deg, #E01020 0%, #c80d1c 100%);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(224,16,32,.18);
+}
+
     .ribbon-bg{
       background:
         radial-gradient(1300px 560px at -260px -260px, rgba(224,16,32,.96) 0 44%, transparent 45%),
@@ -170,6 +176,7 @@
             <ul class="menu menu-horizontal px-1 font-semibold">
               <li><a class="navlink" href="#sporturi">Sporturi</a></li>
               <li><a class="navlink" href="#program">Program</a></li>
+              <li><a class="navlink" href="#regulament">Regulament</a></li>
               <li><a class="navlink" href="#stiri">Știri</a></li>
               <li><a class="navlink" href="#contact">Contact</a></li>
               
@@ -191,6 +198,7 @@
               <ul tabindex="0" class="menu dropdown-content mt-3 p-2 shadow bg-white rounded-box w-56 border border-base-300">
                 <li><a class="navlink" href="#sporturi">Sporturi</a></li>
                 <li><a class="navlink" href="#program">Program</a></li>
+                <li><a class="navlink" href="#regulament">Regulament</a></li>
                 <li><a class="navlink" href="#stiri">Știri</a></li>
                 <li><a class="navlink" href="#contact">Contact</a></li>
                 <li class="mt-2"><a href="{{ url_for('inscriere') }}" class="btn btn-primary w-full">Înscrie-te</a></li>
@@ -240,16 +248,18 @@
           </h1>
 
           <p class="mt-4 text-base lg:text-lg text-white/90 max-w-3xl">
-            O zi de competiții: <b>cros</b>, <b>tenis de câmp</b>, <b>haltere</b>, <b>volei</b>, <b>mini fotbal</b>,
-            <b>badminton</b>, <b>baschet</b>, <b>flowerstick</b>, <b>diabolo</b>, <b>tenis de masă</b>,
-            <b>taekwondo</b>, <b>box</b>, <b>teqball</b> și <b>handball</b>.
+            Eveniment sportiv dedicat mișcării, competiției și atelierelor demonstrative.
+            Participă la <b>cros</b>, <b>handbal</b>, <b>baschet</b>, <b>volei</b>, <b>mini fotbal</b>,
+            <b>tenis de masă</b>, <b>tenis de câmp</b>, <b>haltere</b>, <b>taekwondo</b>, <b>box</b>,
+            <b>badminton</b>, <b>teqball</b> și activități demonstrative precum
+            <b>diabolo</b>, <b>flowerstick</b>, <b>poi</b>, <b>frisbee golf</b>, <b>hacky sack</b> și <b>airsoft</b>.
           </p>
 
           <div class="mt-7 flex flex-wrap gap-3">
-            <a href="#inscriere" class="btn btn-primary">Înscriere</a>
-            <a href="#sporturi" class="btn btn-soft bg-white/10 text-white border-white/20 hover:bg-white/20">Vezi sporturile</a>
-            <a href="#program" class="btn btn-outline border-white text-white hover:bg-white/10 hover:text-white">Program</a>
-          </div>
+            <a href="{{ url_for('inscriere') }}" class="btn btn-primary">Înscriere</a>
+            <a href="#program" class="btn btn-soft bg-white/10 text-white border-white/20 hover:bg-white/20">Vezi programul</a>
+            <a href="#regulament" class="btn btn-outline border-white text-white hover:bg-white/10 hover:text-white">Regulament</a>
+        </div>
 
           <div class="mt-8 grid grid-cols-3 gap-3 max-w-2xl">
             <div class="rounded-2xl bg-white/12 border border-white/20 backdrop-blur-md p-4 text-white">
@@ -325,112 +335,245 @@
   <div class="reveal flex items-end justify-between gap-4">
     <div>
       <h2 class="text-3xl lg:text-4xl font-black text-primary">Sporturi</h2>
-      <p class="mt-2 subtitle">Toate disciplinele participante la eveniment.</p>
+      <p class="mt-2 subtitle">Vezi disciplinele participante, intervalele orare și locurile ocupate.</p>
     </div>
     <a href="{{ url_for('inscriere') }}" class="btn btn-primary hidden sm:inline-flex">Înscrie-te</a>
   </div>
 
   <div class="mt-7 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-    {% for sport in sporturi_status %}
-    <div class="card-glass rounded-3xl p-5 reveal sport-card">
-      <h3 class="text-xl font-black text-primary">{{ sport.nume }}</h3>
+  {% for sport in sporturi_status %}
+<div class="card-glass rounded-3xl p-5 reveal sport-card flex flex-col h-full">
 
-      <p class="mt-2 subtitle text-sm">
+  <div class="flex items-start justify-between gap-2">
+    <h3 class="text-xl font-black text-primary leading-tight">
+      {{ sport.nume }}
+    </h3>
+
+    <span class="badge badge-outline border-primary text-primary badge-sm whitespace-nowrap">
+      {{ sport.tip.split(' ')[0] }}
+    </span>
+  </div>
+
+  <p class="mt-2 text-sm subtitle">
+    <span class="font-semibold text-primary">Ora:</span> {{ sport.ora }}
+  </p>
+
+  {% if sport.descriere %}
+<p class="mt-2 subtitle text-sm">
+  {{ sport.descriere }}
+</p>
+{% endif %}
+
+  <div class="mt-4 pt-4 border-t border-base-300">
+    <div class="flex items-center justify-between text-sm">
+      <p class="subtitle text-sm">
         Înscriși: <b>{{ sport.inscrisi }}</b> / {{ sport.locuri_maxime }}
       </p>
-
-      <div class="mt-4">
-        <div class="w-full rounded-full overflow-hidden" style="height: 10px; background-color: #FFD9DC;">
-          <div
-            style="height: 10px; width: {{ sport.procent }}%; background-color: #E01020; transition: width 0.5s ease;"
-          ></div>
-        </div>
-      </div>
-
-      <p class="mt-2 text-sm font-semibold text-primary">
+      <p class="text-sm font-semibold text-primary">
         {{ sport.procent }}% ocupat
       </p>
     </div>
-    {% endfor %}
+
+    <div class="mt-3">
+      <div class="w-full rounded-full overflow-hidden" style="height: 10px; background-color: #FFD9DC;">
+        <div
+          style="height: 10px; width: {{ sport.procent }}%; background-color: #E01020; transition: width 0.5s ease;"
+        ></div>
+      </div>
+    </div>
   </div>
+
+</div>
+{% endfor %}
+  
+  </div>
+      <div class="mt-12 reveal">
+  <div class="rounded-3xl border border-base-300 bg-white/70 backdrop-blur-sm p-6 lg:p-8">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-3">
+      <div>
+        <h3 class="text-2xl lg:text-3xl font-black text-primary">Demonstrații</h3>
+        <p class="mt-2 subtitle">
+          Activități demonstrative desfășurate în cadrul evenimentului, fără înscriere.
+        </p>
+      </div>
+      <div class="badge badge-primary badge-lg">12:00–15:30</div>
+    </div>
+
+    <div class="mt-6 space-y-4">
+
+      <div class="rounded-2xl bg-white border border-base-300 p-5 hover:shadow-lg transition">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3">
+          <div>
+            <h4 class="text-lg font-black text-primary">FANLEBU BY BULGARASU</h4>
+            <p class="mt-2 subtitle text-sm">
+              Demonstrație cu: <b>diabolo</b>, <b>flowerstick</b>, <b>poi</b>, <b>frisbee golf</b> și <b>hacky sack</b>.
+            </p>
+          </div>
+          <span class="badge badge-outline border-primary text-primary whitespace-nowrap">Demonstrație</span>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-base-300 p-5 hover:shadow-lg transition">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3">
+          <div>
+            <h4 class="text-lg font-black text-primary">C.S V.Î.R.F</h4>
+            <p class="mt-2 subtitle text-sm">
+              Demonstrație și atelier de <b>airsoft</b> și <b>flup</b> (tuburi cu cornete).
+            </p>
+          </div>
+          <span class="badge badge-outline border-primary text-primary whitespace-nowrap">Demonstrație</span>
+        </div>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-base-300 p-5 hover:shadow-lg transition">
+        <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-3">
+          <div>
+            <h4 class="text-lg font-black text-primary">Clubul Sportiv de Air Soft „SUPER DADDYS”</h4>
+            <p class="mt-2 subtitle text-sm">
+              Demonstrație dedicată activităților de airsoft, desfășurată în intervalul oficial al evenimentului.
+            </p>
+          </div>
+          <span class="badge badge-outline border-primary text-primary whitespace-nowrap">Demonstrație</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 </section>
 
-  <!-- PROGRAM -->
+ <!-- PRoGRAM -->
+
   <section id="program" class="mx-auto max-w-6xl px-6 py-10">
   <div class="reveal">
     <div class="flex items-end justify-between gap-4 flex-wrap">
       <div>
         <h2 class="text-3xl lg:text-4xl font-black text-primary">Programul evenimentului</h2>
-        <p class="mt-2 subtitle">Tot ce trebuie să știi despre desfășurarea zilei de concurs.</p>
+        <p class="mt-2 subtitle">Desfășurarea oficială a zilei „Start la Mișcare”.</p>
       </div>
-      <div class="badge badge-primary badge-lg">4 Iunie 2026</div>
+      <div class="badge badge-primary badge-lg">Program oficial</div>
     </div>
 
     <div class="mt-8 grid lg:grid-cols-3 gap-6">
 
-      <!-- STANGA -->
+      <!-- STÂNGA -->
       <div class="lg:col-span-2 card-glass rounded-3xl p-6 lg:p-8">
         <h3 class="text-2xl font-black text-primary mb-6">Desfășurare pe ore</h3>
 
         <div class="space-y-4">
 
           <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
-            <div class="min-w-[90px] text-center rounded-2xl bg-primary text-white px-3 py-2 font-black">
-              08:30
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              10:30–11:00
             </div>
             <div>
-              <h4 class="font-black text-lg">Check-in și validare participanți</h4>
-              <p class="subtitle">Confirmarea înscrierilor și direcționarea către zonele de concurs.</p>
+              <h4 class="font-black text-lg">Validare participanți</h4>
+              <p class="subtitle">
+                Prezentarea acordului de participare (Anexa 1 / Anexa 2) și ridicarea tricoului
+                în zona de validare. Validarea se face pe baza acordului semnat.
+              </p>
             </div>
           </div>
 
           <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
-            <div class="min-w-[90px] text-center rounded-2xl bg-primary text-white px-3 py-2 font-black">
-              09:00
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              11:00
             </div>
             <div>
               <h4 class="font-black text-lg">Deschiderea oficială</h4>
-              <p class="subtitle">Prezentarea evenimentului, a regulamentului și a disciplinelor sportive.</p>
+              <p class="subtitle">
+                Program artistic cu Majoretele Liceului cu Program Sportiv Alba Iulia și
+                demonstrație de karate susținută de clubul ACS Forever Alba Iulia.
+              </p>
             </div>
           </div>
 
           <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
-            <div class="min-w-[90px] text-center rounded-2xl bg-primary text-white px-3 py-2 font-black">
-              09:30
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              11:00–16:00
             </div>
             <div>
-              <h4 class="font-black text-lg">Start competiții</h4>
-              <p class="subtitle">Încep probele sportive conform programării fiecărei discipline.</p>
+              <h4 class="font-black text-lg">Prezentare ateliere sportive</h4>
+              <p class="subtitle">
+                Handbal, baschet, volei, mini fotbal, tenis de masă, tenis de câmp, haltere,
+                taekwondo, box, badminton, teqball, diabolo, flowerstick, poi, frisbee golf,
+                hacky sack, cros și airsoft.
+              </p>
             </div>
           </div>
 
           <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
-            <div class="min-w-[90px] text-center rounded-2xl bg-primary text-white px-3 py-2 font-black">
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              12:00
+            </div>
+            <div>
+              <h4 class="font-black text-lg">Încălzire oficială pentru Cros</h4>
+              <p class="subtitle">
+                Încălzirea oficială are loc alături de antrenorii STAY FIT GYM.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
+           <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              12:15
+            </div>
+            <div>
+              <h4 class="font-black text-lg">Start Cros – nivel primar</h4>
+              <p class="subtitle">
+                Categoria 3–10 ani • distanță 400 m.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              12:30
+            </div>
+            <div>
+              <h4 class="font-black text-lg">Start Cros – nivel gimnazial</h4>
+              <p class="subtitle">
+                Categoria 11–14 ani • distanță 2 km.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap shadow-md">
               13:00
             </div>
             <div>
-              <h4 class="font-black text-lg">Pauză</h4>
-              <p class="subtitle">Moment de relaxare, hidratare și regrupare pentru participanți.</p>
+              <h4 class="font-black text-lg">Start Cros – nivel liceal / OPEN</h4>
+              <p class="subtitle">
+                Categoria liceal / open • distanță 2,7 km.
+              </p>
             </div>
           </div>
 
           <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
-            <div class="min-w-[90px] text-center rounded-2xl bg-primary text-white px-3 py-2 font-black">
-              14:00
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              12:00–15:30
             </div>
             <div>
-              <h4 class="font-black text-lg">Semifinale și finale</h4>
-              <p class="subtitle">Se joacă meciurile decisive și probele finale pentru stabilirea clasamentelor.</p>
+              <h4 class="font-black text-lg">Demonstrații sportive</h4>
+              <p class="subtitle">
+                FANLEBU BY BULGARASU – diabolo, flowerstick, poi, frisbee golf, hacky sack;
+                C.S V.Î.R.F – atelier airsoft și flup; Clubul Sportiv de Air Soft „SUPER DADDYS”.
+              </p>
             </div>
           </div>
 
           <div class="flex gap-4 items-start p-4 rounded-2xl bg-white border border-base-300 hover:shadow-lg transition">
-            <div class="min-w-[90px] text-center rounded-2xl bg-primary text-white px-3 py-2 font-black">
-              17:30
+            <div class="time-badge w-32 shrink-0 text-center rounded-2xl px-3 py-3 font-black text-sm lg:text-base whitespace-nowrap">
+              16:00
             </div>
             <div>
               <h4 class="font-black text-lg">Festivitatea de premiere</h4>
-              <p class="subtitle">Anunțarea câștigătorilor și acordarea premiilor.</p>
+              <p class="subtitle">
+                Se acordă premii constând în materiale sportive pentru locurile I, II și III,
+                de la fiecare atelier sportiv.
+              </p>
             </div>
           </div>
 
@@ -439,32 +582,48 @@
 
       <!-- DREAPTA -->
       <div class="card-glass rounded-3xl p-6 lg:p-8">
-        <h3 class="text-2xl font-black text-primary">Informații utile</h3>
-        <p class="mt-2 subtitle">Detalii importante pentru toți participanții.</p>
+        <h3 class="text-2xl font-black text-primary">Informații rapide</h3>
+        <p class="mt-2 subtitle">Detalii importante pentru participanți.</p>
 
         <div class="mt-6 space-y-4">
+
           <div class="rounded-2xl bg-white border border-base-300 p-4">
             <div class="text-sm muted">Validare</div>
-            <div class="font-black text-lg text-primary">08:30</div>
-            <p class="subtitle text-sm mt-1">Participanții trebuie să ajungă din timp pentru confirmare.</p>
+            <div class="font-black text-lg text-primary">10:30–11:00</div>
+            <p class="subtitle text-sm mt-1">
+              Participanții trebuie să prezinte acordul de participare semnat.
+            </p>
           </div>
 
           <div class="rounded-2xl bg-white border border-base-300 p-4">
-            <div class="text-sm muted">Start concurs</div>
-            <div class="font-black text-lg text-primary">09:30</div>
-            <p class="subtitle text-sm mt-1">Competițiile încep conform programării oficiale.</p>
+            <div class="text-sm muted">Tricouri</div>
+            <div class="font-black text-lg text-primary">Primele 500</div>
+            <p class="subtitle text-sm mt-1">
+              Participanții înscriși primesc tricou de participare în limita stocului disponibil.
+            </p>
           </div>
 
           <div class="rounded-2xl bg-white border border-base-300 p-4">
-            <div class="text-sm muted">Recomandare</div>
-            <div class="font-black text-lg text-primary">Prezență cu 30 min înainte</div>
-            <p class="subtitle text-sm mt-1">Evită întârzierile și pregătește-te din timp.</p>
+            <div class="text-sm muted">Concurs ateliere</div>
+            <div class="font-black text-lg text-primary">25 / atelier</div>
+            <p class="subtitle text-sm mt-1">
+              Numărul de înscrieri pentru concurs este limitat. Excepție: Crosul.
+            </p>
           </div>
+
+          <div class="rounded-2xl bg-white border border-base-300 p-4">
+            <div class="text-sm muted">Premiere</div>
+            <div class="font-black text-lg text-primary">16:00</div>
+            <p class="subtitle text-sm mt-1">
+              Premierea locurilor I, II și III pentru fiecare atelier sportiv.
+            </p>
+          </div>
+
         </div>
 
         <div class="mt-6 flex flex-col gap-3">
           <a href="{{ url_for('inscriere') }}" class="btn btn-primary w-full">Înscriere</a>
-          <a href="{{ url_for('anunturi') }}" class="btn btn-outline w-full">Vezi anunțuri</a>
+          <a href="#regulament" class="btn btn-outline w-full">Citește regulamentul</a>
         </div>
       </div>
 
@@ -472,7 +631,78 @@
   </div>
 </section>
 
-  
+<!-- REGULAMENT -->
+<section id="regulament" class="mx-auto max-w-6xl px-6 py-10">
+  <div class="reveal">
+    <div class="flex items-end justify-between gap-4 flex-wrap">
+      <div>
+        <h2 class="text-3xl lg:text-4xl font-black text-primary">Regulament</h2>
+        <p class="mt-2 subtitle">Condiții de participare și informații oficiale pentru eveniment.</p>
+      </div>
+      <a href="{{ url_for('inscriere') }}" class="btn btn-primary">Înscrie-te</a>
+    </div>
+
+    <div class="mt-8 grid lg:grid-cols-2 gap-6">
+
+      <div class="card-glass rounded-3xl p-6">
+        <h3 class="text-2xl font-black text-primary">Înscriere și validare</h3>
+        <div class="mt-4 space-y-3 subtitle">
+          <p>Înscrierile se fac pe baza acordului de participare semnat.</p>
+          <p><b>Participant adult:</b> semnează personal acordul de participare.</p>
+          <p><b>Participant minor:</b> acordul trebuie semnat de părinte / tutore / însoțitor.</p>
+          <p>Validarea în ziua evenimentului se face pe baza acordului semnat.</p>
+          <p>Toți participanții înscriși vor primi tricouri de participare în limita a 500 de bucăți.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-3xl p-6">
+        <h3 class="text-2xl font-black text-primary">Condiții de participare</h3>
+        <div class="mt-4 space-y-3 subtitle">
+          <p>Fiecare participant își asumă integral răspunderea pentru eventuale accidente sau pagube materiale apărute pe parcursul evenimentului.</p>
+          <p>Fiecare participant declară că are capacitatea fizică și avizul medical necesar pentru participare.</p>
+          <p>Participanții trebuie să prezinte declarația pe proprie răspundere semnată (Anexa 1).</p>
+          <p>Minorii trebuie să prezinte declarația de responsabilitate semnată de părinte / tutore (Anexa 2).</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-3xl p-6">
+        <h3 class="text-2xl font-black text-primary">Obligațiile participanților</h3>
+        <div class="mt-4 space-y-3 subtitle">
+          <p>Participanții sunt rugați să poarte echipament sportiv adecvat și încălțăminte sportivă corespunzătoare.</p>
+          <p>Prin participarea la eveniment, sportivii sunt de acord să respecte toate prevederile prezentului regulament.</p>
+          <p>Prin înscriere, participanții acceptă regulile de organizare și desfășurare ale competițiilor și atelierelor.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-3xl p-6">
+        <h3 class="text-2xl font-black text-primary">Foto / video / date personale</h3>
+        <div class="mt-4 space-y-3 subtitle">
+          <p>Prin înscrierea la eveniment, participanții sunt de acord ca organizatorii să utilizeze datele cu caracter personal, precum și materiale foto, video și audio, pentru promovarea evenimentului.</p>
+          <p>Aceste materiale pot fi utilizate în social media, mass-media și în comunicările oficiale ale evenimentului.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-3xl p-6">
+        <h3 class="text-2xl font-black text-primary">Modificări și vreme nefavorabilă</h3>
+        <div class="mt-4 space-y-3 subtitle">
+          <p>În cazul vremii nefavorabile, evenimentul poate fi reprogramat, iar noua dată va fi anunțată în timp util.</p>
+          <p>Organizatorii își rezervă dreptul de a modifica programul în funcție de condițiile meteo sau de alte situații neprevăzute.</p>
+          <p>Orice modificare va fi comunicată participanților în cel mai scurt timp.</p>
+        </div>
+      </div>
+
+      <div class="card-glass rounded-3xl p-6">
+        <h3 class="text-2xl font-black text-primary">Asistență medicală și responsabilitate</h3>
+        <div class="mt-4 space-y-3 subtitle">
+          <p>Asistența medicală va fi asigurată de către organizator.</p>
+          <p>Ambulanța va fi poziționată în zona start / sosire a crosului.</p>
+          <p>Organizatorul își declină orice responsabilitate privind problemele medicale apărute în timpul sau ulterior evenimentului.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
   <!-- ȘTIRI -->
   <section id="stiri" class="mx-auto max-w-6xl px-6 py-10">

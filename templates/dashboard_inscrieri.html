@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard înscrieri</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: #f8fafc;
+      color: #111827;
+    }
+
+    .page-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .title-red {
+      color: #E01020;
+    }
+
+    .table thead th {
+      background: #fef2f2;
+      color: #991b1b;
+      font-weight: 800;
+      border-bottom: 1px solid #fecaca;
+      white-space: nowrap;
+    }
+
+    .table tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+
+      body {
+        background: white !important;
+      }
+
+      .page-card {
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .table thead th {
+        background: #f3f4f6 !important;
+        color: #111827 !important;
+      }
+
+      table {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body class="p-6">
+
+  <div class="max-w-[1600px] mx-auto">
+    <div class="page-card p-6 md:p-8">
+
+      <div class="flex flex-col gap-4 mb-6 no-print">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h1 class="text-3xl font-black title-red">Dashboard înscrieri</h1>
+            <p class="text-gray-600 mt-1">
+              Gestionare participanți și verificare date
+            </p>
+          </div>
+
+          <div class="flex gap-2 flex-wrap">
+            <a href="{{ url_for('dashboard_inscrieri') }}" class="btn btn-outline">
+              Resetează filtrele
+            </a>
+            <button onclick="window.print()" class="btn btn-neutral">
+              Printează
+            </button>
+          </div>
+        </div>
+
+        <form method="GET" action="{{ url_for('dashboard_inscrieri') }}" class="flex flex-col md:flex-row gap-3">
+          <select name="sport" class="select select-bordered w-full md:w-72">
+            <option value="">Toate sporturile</option>
+            {% for sport in sporturi %}
+              <option value="{{ sport.nume }}" {% if sport_selectat == sport.nume %}selected{% endif %}>
+                {{ sport.nume }}
+              </option>
+            {% endfor %}
+          </select>
+
+          <input
+            type="text"
+            name="q"
+            value="{{ cautare }}"
+            placeholder="Caută după nume, prenume, email, telefon"
+            class="input input-bordered w-full"
+          >
+
+          <button type="submit" class="btn btn-error">
+            Filtrează
+          </button>
+        </form>
+      </div>
+
+      <div class="mb-4">
+        <div class="badge badge-lg badge-outline">
+          Total înscriși: {{ inscrieri|length }}
+        </div>
+        {% if sport_selectat %}
+          <div class="badge badge-lg badge-error ml-2">
+            {{ sport_selectat }}
+          </div>
+        {% endif %}
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+  <tr>
+    <th>ID</th>
+    <th>#</th>
+    <th>Sport</th>
+    <th>Nume</th>
+    <th>Prenume</th>
+    <th>Email</th>
+    <th>Telefon</th>
+    <th>Data nașterii</th>
+    <th>Județ</th>
+    <th>Localitate</th>
+    <th>Stradă</th>
+    <th>Nr.</th>
+    <th>Bloc</th>
+    <th>Ap.</th>
+    <th>CI</th>
+  </tr>
+</thead>
+<tbody>
+  {% for p in inscrieri %}
+  <tr>
+    <td>{{ p.id }}</td>
+    <td>{{ loop.index }}</td>
+    <td>{{ p.sport }}</td>
+    <td>{{ p.nume }}</td>
+    <td>{{ p.prenume }}</td>
+    <td>{{ p.email }}</td>
+    <td>{{ p.telefon }}</td>
+    <td>{{ p.data_nasterii }}</td>
+    <td>{{ p.judet }}</td>
+    <td>{{ p.localitate }}</td>
+    <td>{{ p.strada }}</td>
+    <td>{{ p.numar }}</td>
+    <td>{{ p.bloc or "-" }}</td>
+    <td>{{ p.apartament or "-" }}</td>
+    <td>{{ p.serie_ci }} {{ p.numar_ci }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

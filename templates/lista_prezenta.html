@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>
+  Listă participanți{% if sport_selectat %} - {{ sport_selectat }}{% endif %}
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: #f8fafc;
+      color: #111827;
+    }
+
+    .page-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .title-red {
+      color: #E01020;
+    }
+
+    .table thead th {
+      background: #fef2f2;
+      color: #991b1b;
+      font-weight: 800;
+      border-bottom: 1px solid #fecaca;
+    }
+
+    .table tbody tr {
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+
+      body {
+        background: white !important;
+      }
+
+      .page-card {
+        box-shadow: none !important;
+        border: none !important;
+      }
+
+      .table thead th {
+        background: #f3f4f6 !important;
+        color: #111827 !important;
+      }
+
+      table {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body class="p-6">
+
+  <div class="max-w-7xl mx-auto">
+    <div class="page-card p-6 md:p-8">
+
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6 no-print">
+        <div>
+          <h1 class="text-3xl font-black title-red">
+            Listă prezență
+          </h1>
+          <p class="text-gray-600 mt-1">
+            {% if sport_selectat %}
+              Sport selectat: <b>{{ sport_selectat }}</b>
+            {% else %}
+              Toți participanții
+            {% endif %}
+          </p>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <a href="{{ url_for('lista_prezenta') }}" class="btn btn-outline">
+            Toți
+          </a>
+
+          {% for sport in sporturi %}
+            <a href="{{ url_for('lista_prezenta', sport=sport.nume) }}"
+               class="btn {% if sport_selectat == sport.nume %}btn-error{% else %}btn-outline{% endif %}">
+              {{ sport.nume }}
+            </a>
+          {% endfor %}
+
+          <button onclick="window.print()" class="btn btn-neutral">
+            Printează
+          </button>
+        </div>
+      </div>
+
+      <div class="hidden print:block text-center mb-4">
+        <h2 class="text-xl font-bold">
+          Listă participanți {% if sport_selectat %}- {{ sport_selectat }}{% endif %}
+        </h2>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nume</th>
+              <th>Prenume</th>
+              <th>Data nașterii</th>
+              <th>Telefon</th>
+              <th>Minor</th>
+              <th>Semnătură</th>
+              <th>Observații</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in inscrieri %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ p.nume }}</td>
+              <td>{{ p.prenume }}</td>
+              <td>{{ p.data_nasterii }}</td>
+              <td>{{ p.telefon }}</td>
+              <td>
+                {% set an = p.data_nasterii.split('.')[-1]|int %}
+                {% if (2026 - an) < 18 %}
+                  DA
+                {% else %}
+                  NU
+                {% endif %}
+              </td>
+              <td class="min-w-[140px] h-12"></td>
+              <td class="min-w-[160px] h-12"></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,8 +1,9 @@
-Flask
-Flask-Admin
-Flask-SQLAlchemy
-Flask-BasicAuth
-WTForms
-Werkzeug
-psycopg2-binary
-gunicorn
+Flask==3.0.3
+Flask-Admin==1.6.1
+Flask-SQLAlchemy==3.1.1
+Flask-BasicAuth==0.2.0
+WTForms==3.1.2
+Flask-WTF==1.2.1
+Flask-Limiter==3.5.0
+gunicorn==21.2.0
+psycopg2-binary==2.9.9
