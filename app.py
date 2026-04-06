@@ -150,6 +150,16 @@ def uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
+@app.route("/debug-db")
+def debug_db():
+    return {
+        "engine": str(db.engine.url),
+        "tables": db.inspect(db.engine).get_table_names(),
+        "inscrieri_count": Inscriere.query.count(),
+        "sporturi_count": Sport.query.count()
+    }
+
+
 @app.route("/")
 def index():
     posts = Post.query.all()
