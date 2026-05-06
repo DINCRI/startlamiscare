@@ -178,7 +178,12 @@ class MyModelView(ModelView):
         return basic_auth.authenticate()
 
 
-admin = Admin(app, name="admin", index_view=MyAdminIndexView())
+admin = Admin(
+    app,
+    name="admin",
+    index_view=MyAdminIndexView(),
+    url="/panou-secret"
+)
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Post, db.session))
 admin.add_view(MyModelView(Document, db.session))
