@@ -40,27 +40,56 @@
     }
 
     @media print {
-      .no-print {
-        display: none !important;
-      }
+      @media print {
+  @page {
+    size: A4 landscape;
+    margin: 8mm;
+  }
 
-      body {
-        background: white !important;
-      }
+  .no-print {
+    display: none !important;
+  }
 
-      .page-card {
-        box-shadow: none !important;
-        border: none !important;
-      }
+  body {
+    background: white !important;
+    padding: 0 !important;
+  }
 
-      .table thead th {
-        background: #f3f4f6 !important;
-        color: #111827 !important;
-      }
+  .max-w-\[1600px\],
+  .page-card {
+    max-width: none !important;
+    width: 100% !important;
+  }
 
-      table {
-        font-size: 11px;
-      }
+  .page-card {
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .overflow-x-auto {
+    overflow: visible !important;
+  }
+
+  table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    font-size: 8px !important;
+    border-collapse: collapse !important;
+  }
+
+  th,
+  td {
+    padding: 3px 4px !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+  }
+
+  .table thead th {
+    background: #f3f4f6 !important;
+    color: #111827 !important;
+  }
+}
     }
   </style>
 </head>

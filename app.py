@@ -124,7 +124,7 @@ with app.app_context():
     db.create_all()
 
     sporturi_default = [
-        ("Cros", 1000),
+        ("Cros", 700),
         ("Tenis de câmp", 25),
         ("Haltere", 25),
         ("Volei", 25),
@@ -135,7 +135,7 @@ with app.app_context():
         ("Taekwondo", 25),
         ("Box", 25),
         ("Teqball", 25),
-        ("Handball", 25),
+        ("Handbal", 25),
     ]
 
     for nume_sport, locuri in sporturi_default:

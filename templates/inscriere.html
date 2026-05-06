@@ -172,16 +172,13 @@
             <div class="rounded-2xl bg-white border border-warning/30 p-4">
   <div class="font-black text-warning">Atenție</div>
   
-  <p class="mt-2 text-sm leading-6 subtitle">
-    Participanții minori sunt obligați să prezinte la eveniment
-    acordul parental semnat de părinte sau tutorele legal.
-  </p>
+  <p class="mt-1 text-sm text-yellow-800">
+      Dacă participantul este <b>minor</b>, formularul trebuie completat de către
+      <b>părinte / tutore</b>.<br>
+      Dacă participantul este <b>major</b>, formularul se completează personal.
+    </p>
 
-  <a href="{{ url_for('static', filename='uploads/acord_parental.pdf') }}"
-     class="btn btn-primary btn-sm mt-3 w-full"
-     download>
-    Descarcă acordul parental
-  </a>
+  
 </div>
             <div class="rounded-2xl bg-white border border-base-300 p-4">
               <div class="font-black text-primary">Eveniment</div>
@@ -212,23 +209,27 @@
   <div class="grid md:grid-cols-2 gap-4">
     <div>
       <label class="font-semibold block mb-2">Nume</label>
-      <input name="nume" type="text" class="input input-bordered w-full bg-white" placeholder="Introdu numele" required>
+      <input name="nume" type="text" class="input input-bordered w-full bg-white" placeholder="Numele participantului" required>
     </div>
 
     <div>
       <label class="font-semibold block mb-2">Prenume</label>
-      <input name="prenume" type="text" class="input input-bordered w-full bg-white" placeholder="Introdu prenumele" required>
+      <input name="prenume" type="text" class="input input-bordered w-full bg-white" placeholder="Prenumele participantului" required>
     </div>
   </div>
 
   <div class="grid md:grid-cols-2 gap-4">
     <div>
-      <label class="font-semibold block mb-2">Email</label>
+      <label class="font-semibold block mb-2">Email
+         <span class="text-sm opacity-60">(părinte dacă participantul este minor)</span>
+      </label>
       <input name="email" type="email" class="input input-bordered w-full bg-white" placeholder="Introdu emailul" required>
     </div>
 
     <div>
-      <label class="font-semibold block mb-2">Telefon</label>
+      <label class="font-semibold block mb-2">Telefon
+        <span class="text-sm opacity-60">(părinte dacă participantul este minor)</span>
+      </label>
       <input name="telefon" type="tel" class="input input-bordered w-full bg-white" placeholder="Introdu numărul de telefon" required>
     </div>
   </div>
@@ -280,7 +281,10 @@
 
   <div class="rounded-2xl bg-base-200/70 border border-base-300 p-4">
     <h3 class="font-black text-primary mb-4">Act de identitate</h3>
-
+    <p >
+           În cazul în care participantul este minor, se vor completa datele actului de identitate ale părintelui.
+          </p>
+          
     <div class="grid md:grid-cols-2 gap-4">
       <div>
         <label class="font-semibold block mb-2">Serie BI/CI</label>
@@ -318,9 +322,16 @@
 
     <div class="space-y-4">
   <label class="flex items-center gap-3">
-    <input type="checkbox" name="acord_regulament" value="1" required>
-    <span>Sunt de acord cu regulamentul evenimentului.</span>
-  </label>
+  <input type="checkbox" name="acord_regulament" value="1" required>
+  <span>
+    Sunt de acord cu 
+    <a href="{{ url_for('index') }}#regulament" 
+       target="_blank"
+       class="text-primary font-semibold underline">
+       regulamentul evenimentului
+    </a>.
+  </span>
+</label>
 
   <label class="flex items-center gap-3">
     <input type="checkbox" name="acord_responsabilitate" value="1" required>
