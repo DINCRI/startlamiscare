@@ -177,7 +177,7 @@
               <li><a class="navlink" href="#sporturi">Sporturi</a></li>
               <li><a class="navlink" href="#program">Program</a></li>
               <li><a class="navlink" href="#regulament">Regulament</a></li>
-              <li><a class="navlink" href="#stiri">Știri</a></li>
+              <li><a class="navlink" href="#stiri">Anunțuri</a></li>
               <li><a class="navlink" href="#contact">Contact</a></li>
               
             </ul>
@@ -199,7 +199,7 @@
                 <li><a class="navlink" href="#sporturi">Sporturi</a></li>
                 <li><a class="navlink" href="#program">Program</a></li>
                 <li><a class="navlink" href="#regulament">Regulament</a></li>
-                <li><a class="navlink" href="#stiri">Știri</a></li>
+                <li><a class="navlink" href="#stiri">Anunțuri</a></li>
                 <li><a class="navlink" href="#contact">Contact</a></li>
                 <li class="mt-2"><a href="{{ url_for('inscriere') }}" class="btn btn-primary w-full">Înscrie-te</a></li>
               </ul>
@@ -262,10 +262,13 @@
         </div>
 
           <div class="mt-8 grid grid-cols-3 gap-3 max-w-2xl">
-            <div class="rounded-2xl bg-white/12 border border-white/20 backdrop-blur-md p-4 text-white">
-              <div class="text-xs text-white/70">DATA</div>
-              <div class="font-black text-primary">04.06.2026</div>
-            </div>
+            <div class="rounded-2xl bg-white/12 border border-white/20 backdrop-blur-md p-4 text-white min-w-0">
+  <div class="text-xs text-white/70">DATA</div>
+  
+  <div class="font-black text-primary text-sm sm:text-base break-words">
+    04.06.2026
+  </div>
+</div>
             <div class="rounded-2xl bg-white/12 border border-white/20 backdrop-blur-md p-4 text-white">
               <div class="text-xs text-white/70">SPORTURI</div>
               <div class="font-black text-primary">14</div>
@@ -777,7 +780,7 @@
   <section id="stiri" class="mx-auto max-w-6xl px-6 py-10">
     <div class="reveal flex items-end justify-between gap-4">
       <div>
-        <h2 class="text-3xl lg:text-4xl font-black text-primary">Știri</h2>
+        <h2 class="text-3xl lg:text-4xl font-black text-primary">Anunturi</h2>
         
       </div>
       <a href="{{ url_for('anunturi') }}" class="btn btn-outline hidden sm:inline-flex">Toate</a>
