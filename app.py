@@ -177,12 +177,11 @@ class MyModelView(ModelView):
     def is_accessible(self):
         return basic_auth.authenticate()
 
-
 admin = Admin(
     app,
     name="admin",
-    index_view=MyAdminIndexView(),
-    url="/panou-secret"
+    index_view=MyAdminIndexView(url="/panou-secret"),
+    template_mode="bootstrap3"
 )
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Post, db.session))
@@ -481,7 +480,7 @@ def inscriere():
     )
 
 
-@app.route("/lista-prezenta")
+@app.route("/lista-prezenta773")
 @basic_auth.required
 def lista_prezenta():
     sport_selectat = request.args.get("sport", "").strip()
@@ -506,7 +505,7 @@ def lista_prezenta():
         sport_selectat=sport_selectat
     )
 
-@app.route("/dashboard-inscrieri")
+@app.route("/dashboard-inscrieri223")
 @basic_auth.required
 def dashboard_inscrieri():
     sport_selectat = request.args.get("sport", "").strip()
@@ -543,6 +542,21 @@ def dashboard_inscrieri():
         sport_selectat=sport_selectat,
         cautare=cautare
     )
+
+@app.errorhandler(404)
+def not_found_error(error):
+    return render_template("errors/404.html"), 404
+
+
+@app.errorhandler(403)
+def forbidden_error(error):
+    return render_template("errors/403.html"), 403
+
+
+@app.errorhandler(500)
+def internal_error(error):
+    db.session.rollback()
+    return render_template("errors/500.html"), 500
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

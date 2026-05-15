@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Pagina nu există</title>
+
+    <style>
+        body{
+            margin:0;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            background:#0f172a;
+            color:white;
+            font-family:Arial;
+            overflow:hidden;
+        }
+
+        .box{
+            text-align:center;
+        }
+
+        h1{
+            font-size:120px;
+            margin:0;
+            color:#f83838;
+        }
+
+        p{
+            font-size:22px;
+            opacity:.8;
+        }
+
+        a{
+            display:inline-block;
+            margin-top:20px;
+            padding:14px 30px;
+            background:#f83838;
+            color:black;
+            text-decoration:none;
+            border-radius:12px;
+            font-weight:bold;
+            transition:.3s;
+        }
+
+        a:hover{
+            transform:scale(1.05);
+        }
+
+        .glow{
+            position:absolute;
+            width:500px;
+            height:500px;
+            background:#f83838;
+            filter:blur(140px);
+            opacity:.15;
+            border-radius:50%;
+        }
+
+        .g1{
+            top:-150px;
+            left:-150px;
+        }
+
+        .g2{
+            bottom:-150px;
+            right:-150px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+
+<div class="box">
+    <h1>404</h1>
+    <p>Pagina pe care o cauți nu există.</p>
+
+    <a href="/">Înapoi acasă</a>
+</div>
+
+</body>
+</html>
