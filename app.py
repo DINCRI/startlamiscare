@@ -57,7 +57,7 @@ else:
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-upload_folder = os.path.join(BASE_DIR, "uploads")
+upload_folder = os.path.join(BASE_DIR, "static", "uploads")
 os.makedirs(upload_folder, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = upload_folder
 
