@@ -251,7 +251,7 @@ SPORTURI_INFO = {
         "tip": "Atelier + concurs",
         "descriere": "Meciuri 1 vs 1, până la 6 puncte, finala în sistem cel mai bun din 3 seturi."
     },
-    "Handball": {
+    "Handbal": {
         "ora": "13:00",
         "tip": "Atelier + concurs",
         "descriere": "Concurs de aruncări la plasă-țintă."
@@ -319,7 +319,7 @@ EMAIL_REGEX = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 PHONE_REGEX = re.compile(r"^(\+4|4|0)7\d{8}$")
 DATE_REGEX = re.compile(r"^(0[1-9]|[12][0-9]|3[01])\.(0[1-9]|1[0-2])\.\d{4}$")
 SERIE_CI_REGEX = re.compile(r"^[A-Za-z]{2}$")
-NUMAR_CI_REGEX = re.compile(r"^\d{6}$")
+NUMAR_CI_REGEX = re.compile(r"^\d{6,8}$")
 
 @app.route("/inscriere/", methods=("GET", "POST"))
 @limiter.limit("5 per minute")
